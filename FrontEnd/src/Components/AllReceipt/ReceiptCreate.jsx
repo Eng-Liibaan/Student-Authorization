@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { endpoint } from "../../pages/Login";

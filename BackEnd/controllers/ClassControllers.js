@@ -5,6 +5,8 @@ const UserModel = require('../model/UserModel')
 require('dotenv').config()
 const GetClass = async (req, res) => {
     try {
+        let { Class } = req.AllData && req.AllData;
+
         let GetClass = await ClassModel.find().populate("Email")
         res.send(GetClass)
 
@@ -76,6 +78,10 @@ const PutClass = async (req, res) => {
 const DeleteClass = async (req, res) => {
     try {
         let { id } = req.params;
+        let payment = await PaymentModel.findOne({ ClassName: id })
+        if (payment) {
+            await PaymentModel.findByIdAndDelete(payment._id)
+        }
         let Remove = await ClassModel.findByIdAndDelete(id)
         if (!Remove) return res.send('')
         res.send({

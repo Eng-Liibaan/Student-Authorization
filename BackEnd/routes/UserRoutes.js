@@ -6,6 +6,6 @@ const { RefreshToken } = require('../middleware/Refresh-Token');
 const { PostUser } = require('../controllers/User-Authorization');
 const { Upload } = require('../config/Database');
 router.post('/user/signup',Upload, PostUser)
-.get('/user', GetUser).get('/user/Alluser', GetAllUser).put('/user/:id', PutUser).put('/user/Profile/:id',Upload ,PutUser).delete('/user/:id', DeleteUser)
+.get('/user',VerifyToken, GetUser).get('/user/Alluser',VerifyToken, GetAllUser).put('/user/:id', PutUser).put('/user/Profile/:id',Upload ,PutUser).delete('/user/:id', DeleteUser)
 // .get('/refresh/user',RefreshToken, VerifyToken, GetUser).get('/refresh/user/Alluser',RefreshToken, VerifyToken, GetAllUser).put('/refresh/user/:id',RefreshToken,VerifyToken, PutUser).delete('/refresh/user/:id',RefreshToken,VerifyToken, DeleteUser)
 module.exports = router;

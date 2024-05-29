@@ -6,11 +6,16 @@ import { SingleDash } from "./SingleDashboard";
 import { ClassTable } from "./AllTable/ClassTable";
 import { StudentTable } from "./AllTable/StudentTable";
 import { UserTable } from "./AllTable/UserTable";
-import cookie from 'universal-cookie'
 export const UserDashboard = () => {
- let navigate=useNavigate()
- let Cookie=new cookie()
- let {user}=Cookie.get('user')
+  let navigate = useNavigate();
+
+  let user = JSON.parse(localStorage.getItem("user") || null);
+  if (!user) {
+    setTimeout(() => {
+      navigate("/login");
+    });
+    return;
+  }
   useEffect(() => {
     navigate("/UserDashboard");
   }, [navigate]);
@@ -32,7 +37,7 @@ export const UserDashboard = () => {
   };
   const ImageEdit = () => {
     let singleuserimage = document.querySelector(".singleuserimage");
-    console.log(singleuserimage)
+    console.log(singleuserimage);
     singleuserimage.classList.toggle("open");
     const singleuser = document.querySelector(".singleuser");
     singleuser.classList.remove("open");
@@ -117,9 +122,7 @@ export const UserDashboard = () => {
       <div className="col singleuser">
         <SingleDash />
       </div>
-      <div className="col singleuserimage">
-        receipt
-      </div>
+      <div className="col singleuserimage">receipt</div>
       <div className="col classtable">
         <ClassTable />
       </div>

@@ -3,18 +3,16 @@ import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { endpoint } from "../pages/Login";
-import cookie from "universal-cookie";
 export const ChangeProfile = () => {
   let { id } = useParams();
   let navigate = useNavigate();
-  let Cookie = new cookie();
-
-  const { user } = Cookie.get("user");
-
-  let UserData =
-    JSON.parse(localStorage.getItem("AllUser")) &&
-    JSON.parse(localStorage.getItem("AllUser"));
-
+  let user = JSON.parse(localStorage.getItem("user") || null);
+  if (!user) {
+    setTimeout(() => {
+      navigate("/login");
+    });
+    return;
+  }
   let ImageRef = useRef(null);
 
   const [User, setUser] = useState({

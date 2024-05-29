@@ -6,7 +6,8 @@ const UserModel = require('../model/UserModel')
 const { StudentValidation, EmailValidation } = require('../validation/AllValidation')
 const GetStudent = async (req, res) => {
     try {
-        let GetStudent = await StudentModel.find().populate('Email')
+        const { Student } = req.AllData && req.AllData
+        let GetStudent = await StudentModel.find({Email:{$ne:Student}}).populate('Email')
         res.send(GetStudent)
     } catch (error) {
         res.send(error.message)
@@ -31,7 +32,6 @@ const PostStudent = async (req, res) => {
         if (!UserData) return res.send("Userka lama helin")
         if (error) return res.send(error.message)
         let Insert = new StudentModel({Email, Name, Phone, Gender, Address, Balance, TotalAmount, AmountPaid, Status })
-    console.log(Insert)
         const UserExist = await StudentModel.findOne({ Email: UserData._id })
         if (UserExist) return res.send("User Already Exist")
         await StudentModel.findByIdAndUpdate(Insert._id, {

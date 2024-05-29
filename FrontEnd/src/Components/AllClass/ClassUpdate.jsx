@@ -2,14 +2,19 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { endpoint } from "../../pages/Login";
-import cookie from 'universal-cookie'
 import axios from "axios";
 export const ClassUpdate = () => {
-  let Cookie=new cookie()
   let { id } = useParams();
   let navigate = useNavigate();
-  let ClassData=Cookie.get('ClassData')
+  let ClassData = JSON.parse(localStorage.getItem("ClassData") || null);
+  if (!ClassData) {
+    setTimeout(() => {
+      navigate("/Class");
+    });
+    return;
+  }
   let ClassExist = ClassData.filter((data) => data._id === id)[0];
+
 
   const { Email, ClassName, ClassStatus } = ClassExist;
 

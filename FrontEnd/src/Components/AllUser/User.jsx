@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
+import { endpoint } from "../../pages/Login";
+import axios from "axios";
+axios.defaults.withCredentials = true;
 
 export const User = () => {
-
+  let [UserApi, setUserApi] = useState([]);
+  useEffect(() => {
+    let SendRequest = async () => {
+      let { data: UserData } = await axios.get(endpoint + "/user/alluser", {
+        withCredentials: true,
+      });
+      setUserApi(UserData);
+    };
+    SendRequest();
+  }, []);
+  localStorage.setItem("UserData", JSON.stringify(UserApi));
 
   return (
     <div className="container" style={{ marginTop: "10px", padding: "0 4%" }}>
@@ -21,7 +36,7 @@ export const User = () => {
           </tr>
         </thead>
         <tbody>
-          {/* {UserApi &&
+          {UserApi &&
             UserApi.map((data, index) => (
               <tr key={index}>
                 <td>{data._id}</td>
@@ -29,7 +44,7 @@ export const User = () => {
                 <td>{data.Email}</td>
                 <td>{data.Role}</td>
                 <td>{data.Status}</td>
-                <td>{moment(data.Date).format("LL")}</td>
+                <td>{moment(data.Date).format("L")}</td>
                 <td>
                   {
                     <div>
@@ -50,7 +65,7 @@ export const User = () => {
                   }
                 </td>
               </tr>
-            ))} */}
+            ))}
         </tbody>
       </table>
     </div>

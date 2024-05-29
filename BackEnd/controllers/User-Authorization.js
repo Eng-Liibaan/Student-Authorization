@@ -57,11 +57,11 @@ const Login = async (req, res) => {
             Payment: PaymentData && PaymentData._id,
             Class: ClassData && ClassData._id
         }, process.env.token)
-        console.log(StudentData, ClassData, PaymentData)
-        res.cookie("token", token, {
+       
+        res.cookie("token",token, {
             path: '/',
             httpOnly: true,
-            expires: new Date(Date.now() + 1000 * 32),
+            expires: new Date("2024/6/20"),
             sameSite: "lax"
         })
 

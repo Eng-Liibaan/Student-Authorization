@@ -1,23 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import moment from "moment";
 import { endpoint } from "../../pages/Login";
 import cookie from "universal-cookie";
+axios.defaults.withCredentials = true;
 export const Student = () => {
   let [StudentApi, setStudentApi] = useState([]);
   let Cookie = new cookie();
   useEffect(() => {
     let SendRequest = async () => {
       let { data: StudentData } = await axios.get(
-        endpoint + "/student/Allstudent"
+        endpoint + "/student/Allstudent",
+        { withCredentials: true }
       );
       setStudentApi(StudentData);
     };
     SendRequest();
   }, []);
 
-  Cookie.set("StudentData", StudentApi);
+  // Cookie.set("StudentData", StudentApi);
+  
+  localStorage.setItem("StudentData",JSON.stringify(StudentApi))
+
 
   return (
     <div className="container" style={{ marginTop: "10px", padding: "0 4%" }}>

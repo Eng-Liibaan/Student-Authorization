@@ -3,12 +3,16 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { endpoint } from "../../pages/Login";
-import cookie from "universal-cookie";
 export const StudentUpdate = () => {
   let navigate = useNavigate();
-  let Cookie = new cookie();
   let { id } = useParams();
-  let StudentData = Cookie.get("StudentData");
+  let StudentData = JSON.parse(localStorage.getItem("StudentData") || null);
+  if (!StudentData) {
+    setTimeout(() => {
+      navigate("/Student");
+    });
+    return;
+  }
   let StudentExist = StudentData.filter((data) => data._id === id)[0];
   const { Name, Phone, Gender, Email, Address } = StudentExist;
   const [User, setUser] = useState({

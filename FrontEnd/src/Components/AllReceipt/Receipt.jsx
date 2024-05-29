@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 import moment from "moment";
-import cookie from "universal-cookie";
 import { endpoint } from "../../pages/Login";
 import { useEffect, useState } from "react";
 import axios from "axios";
 export const Receipt = () => {
   let [ReceiptApi, setReceiptApi] = useState([]);
-  let Cookie = new cookie();
   useEffect(() => {
     let SendRequest = async () => {
       let { data: ReceiptData } = await axios.get(
@@ -17,7 +15,7 @@ export const Receipt = () => {
     };
     SendRequest();
   }, []);
-  Cookie.set("ReceiptData", ReceiptApi);
+   localStorage.setItem("ReceiptData",JSON.stringify(ReceiptApi))
 
   return (
     <div className="container" style={{ marginTop: "10px", padding: "0 4%" }}>

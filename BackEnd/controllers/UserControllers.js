@@ -8,7 +8,8 @@ const PaymentModel = require('../model/PaymentModel')
 require('dotenv').config()
 
 const GetAllUser = async (req, res) => {
-    let Getuser = await UserModel.find()
+    let { User } = req.AllData && req.AllData
+    let Getuser = await UserModel.find({_id:{$ne:User}})
     res.status(200).send(Getuser)
 
 }
