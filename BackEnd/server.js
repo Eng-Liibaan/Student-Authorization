@@ -17,9 +17,9 @@ app.use('/api', require('./routes/StudentRoutes'))
 app.use('/api', require('./routes/ClassRoutes'))
 const path = require('path')
 
-app.use(express.static(path.join(__dirname, "../FrontEnd/dist")))
+app.use(express.static(path.join(__dirname, "../frontEnd/dist")))
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, "../FrontEnd", "dist", "index.html"))
+    res.sendFile(path.join(__dirname, "../frontEnd", "dist", "index.html"))
 })
 ConnectionDb()
 app.listen(process.env.port, () => console.log(process.env.Runningconnect))
